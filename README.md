@@ -75,3 +75,11 @@ You can specify a number of options in the config file. All available options ar
       * `default`: Dependant of the parent-option... For creations: `function(n) {return 'new ' + n;}`
       * `description`: You can specify a function here to change the way the logs look like. Arguments received by the function depends on the parent-option. The first is always the name of the module. The second can be: the method name, the event name or the type of request. For those 3 parent-option, the third is the cid when available (always passed as argument, even when the `cid` option is set to `false` - this option is only useful when default formats are used).
     * `exclude`/`excludeRe`/`include`/`includeRe`: Those are the same than for the `names` options, except that they're related to their parent-option. For example, setting `excludeRe` of `events` to `/^change:/` will exclude any attribute change event of the logs. Another example, setting `exclude` of `methods` to `['initialize']` will exclude `initialize` calls when objects are created (instead of having both the creation log and the initialize call log).
+
+Note
+----
+The arguments of method calls or such are NOT logged. The reason here is to keep the logs readable, and also so the garbage collectore can do its work. Hence, the plugin should cause no memory leak (keep in mind that this is not a problem anyway, as the plugin should be removed in a production environment, see the next section).
+
+Building your project
+---------------------
+When using r.js, replace the path to the source file to the `-build` version which is just an empty module. If you're using the `mainConfigFile` option, anything put in the `paths` option will overwrite the loaded paths.
